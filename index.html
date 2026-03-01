@@ -369,6 +369,13 @@
           document.getElementById('main-cover').style.display = 'none';
           mainVideo.src = songs[currentSong].video;
           mainVideo.style.display = 'block';
+          mainVideo.muted = true;
+          mainVideo.loop = true;
+          mainVideo.playsInline = true;
+          mainVideo.onended = function() {
+            this.currentTime = 0;
+            this.play();
+          };
           mainVideo.load();
           mainVideo.play();
     
@@ -377,6 +384,13 @@
           if (bgVideo) {
             bgVideo.src = songs[currentSong].video;
             bgVideo.style.display = 'block';
+            bgVideo.muted = true;
+            bgVideo.loop = true;
+            bgVideo.playsInline = true;
+            bgVideo.onended = function() {
+              this.currentTime = 0;
+              this.play();
+            };
             bgVideo.load();
             bgVideo.play();
           }
@@ -385,6 +399,7 @@
           mainVideo.pause();
           mainVideo.removeAttribute('src');
           mainVideo.style.display = 'none';
+          mainVideo.onended = null;
           document.getElementById('main-cover').style.display = 'block';
           tryLoadImage(document.getElementById('main-cover'), baseCover);
     
@@ -393,6 +408,7 @@
             bgVideo.pause();
             bgVideo.removeAttribute('src');
             bgVideo.style.display = 'none';
+            bgVideo.onended = null;
           }
           tryLoadBgBlur(baseCover);
         }
